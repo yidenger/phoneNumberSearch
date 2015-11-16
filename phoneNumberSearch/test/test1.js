@@ -1,6 +1,6 @@
 var query = require('query-mobile-phone-area');
 
-var phoneNumber = '1111111111111111';
+var phoneNumber = '13148809508';
 console.log(query(phoneNumber));
 
 // var query = require('query-mobile-phone-area');
