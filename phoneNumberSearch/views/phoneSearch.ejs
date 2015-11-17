@@ -12,11 +12,31 @@
   <body>
 	<div class="container">
 		<form class="form-phone text-center">
-			<h2 class="form-phone-heading">Enter Phone Number</h2>
+			<h3 class="form-phone-heading">Please Enter Phone Number</h2>
 			<label for="inputPhoneNumber" class="sr-only">Phone Number</label>
 			<input type="tel" class="form-control" id="inputPhoneNumber" placeholder="Phone Number" required autofoucs>
-			<button type="button" class="btn btn-primary" id="searchBtn">Search</button>	
+			<button type="button" class="btn btn-primary" id="searchBtn" data-toggle="modal" data-target="#myModal">Search</button>	
 		</form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">详细信息</h4>
+          </div>
+          <div class="modal-body">
+            <label>省份:&nbsp;</label><p id="province"></p>
+            <label>城市:&nbsp;</label><p id="city"></p>
+            <label>类型:&nbsp;</label><p id="phoneType"></p>
+          </div>
+          <div class="modal-footer text-center">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 	</div>
   <script type="text/javascript">
     $(document).ready(function(){
@@ -26,8 +46,14 @@
           url: "http://127.0.0.1:4848/phoneNumber/search",
           data: {phoneNumber: $("#inputPhoneNumber").val()},
           success: function (data) {
-            console.log(data);
-            alert(data);
+            if(data){
+              $("#province").text(data.province);
+              $("#city").text(data.city);
+              $("#phoneType").text(data.type);
+            }
+            else{
+              $(".modal-body").html("<p>手机号码不合规范，请检查后重新输入</p>");
+            }
           }
         });
       });
